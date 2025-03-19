@@ -1,0 +1,226 @@
+======================
+[Test 1] Distribuição de Escolha
+Criando processo...  Criado PID 1!
+
+(Passo:0)
+===Acoes Aleatorias===
+======================
+PID: 1; STAT: 4; PPID: 1; CPU: 0; Tckts: 1; SS: -1; PRV: 1
+
+(Passo:0/Iteracoes:100)
+PID: 1; STAT: 8; PPID: 1; CPU: 100; Tckts: 1; SS: -1; PRV: 1
+
+Continuar (s/n)? 
+(Passo:1)
+===Acoes Aleatorias===
+Criando processo...  Criado PID 2!
+======================
+PID: 2; STAT: 4; PPID: 1; CPU: 0; Tckts: 9800; SS: -1; PRV: 1 NXT:1
+PID: 1; STAT: 8; PPID: 1; CPU: 100; Tckts: 1; SS: -1; PRV: 2
+
+(Passo:1/Iteracoes:100)
+PID: 2; STAT: 8; PPID: 1; CPU: 100; Tckts: 9800; SS: -1; PRV: 1 NXT:1
+PID: 1; STAT: 4; PPID: 1; CPU: 100; Tckts: 1; SS: -1; PRV: 2
+
+Continuar (s/n)? 
+(Passo:2)
+===Acoes Aleatorias===
+Bloqueado processo 2
+======================
+PID: 2; STAT: 2; PPID: 1; CPU: 100; Tckts: 9800; SS: -1; PRV: 1 NXT:1
+PID: 1; STAT: 4; PPID: 1; CPU: 100; Tckts: 1; SS: -1; PRV: 2
+
+(Passo:2/Iteracoes:100)
+PID: 2; STAT: 2; PPID: 1; CPU: 100; Tckts: 9800; SS: -1; PRV: 1 NXT:1
+PID: 1; STAT: 8; PPID: 1; CPU: 200; Tckts: 1; SS: -1; PRV: 2
+
+Continuar (s/n)? 
+(Passo:3)
+===Acoes Aleatorias===
+Desbloqueado processo 2
+======================
+PID: 2; STAT: 4; PPID: 1; CPU: 100; Tckts: 9800; SS: -1; PRV: 1 NXT:1
+PID: 1; STAT: 8; PPID: 1; CPU: 200; Tckts: 1; SS: -1; PRV: 2
+
+(Passo:3/Iteracoes:100)
+PID: 2; STAT: 8; PPID: 1; CPU: 200; Tckts: 9800; SS: -1; PRV: 1 NXT:1
+PID: 1; STAT: 4; PPID: 1; CPU: 200; Tckts: 1; SS: -1; PRV: 2
+
+Continuar (s/n)? 
+(Passo:4)
+===Acoes Aleatorias===
+Criando processo...  Criado PID 3!
+======================
+PID: 3; STAT: 4; PPID: 1; CPU: 0; Tckts: 8000; SS: -1; PRV: 1 NXT:2
+PID: 2; STAT: 8; PPID: 1; CPU: 200; Tckts: 9800; SS: -1; PRV: 3 NXT:1
+PID: 1; STAT: 4; PPID: 1; CPU: 200; Tckts: 1; SS: -1; PRV: 2
+
+(Passo:4/Iteracoes:100)
+PID: 3; STAT: 4; PPID: 1; CPU: 54; Tckts: 8000; SS: -1; PRV: 1 NXT:2
+PID: 2; STAT: 8; PPID: 1; CPU: 246; Tckts: 9800; SS: -1; PRV: 3 NXT:1
+PID: 1; STAT: 4; PPID: 1; CPU: 200; Tckts: 1; SS: -1; PRV: 2
+
+Continuar (s/n)? 
+(Passo:5)
+===Acoes Aleatorias===
+Bloqueado processo 2
+======================
+PID: 3; STAT: 4; PPID: 1; CPU: 54; Tckts: 8000; SS: -1; PRV: 1 NXT:2
+PID: 2; STAT: 2; PPID: 1; CPU: 246; Tckts: 9800; SS: -1; PRV: 3 NXT:1
+PID: 1; STAT: 4; PPID: 1; CPU: 200; Tckts: 1; SS: -1; PRV: 2
+
+(Passo:5/Iteracoes:100)
+PID: 3; STAT: 8; PPID: 1; CPU: 154; Tckts: 8000; SS: -1; PRV: 1 NXT:2
+PID: 2; STAT: 2; PPID: 1; CPU: 246; Tckts: 9800; SS: -1; PRV: 3 NXT:1
+PID: 1; STAT: 4; PPID: 1; CPU: 200; Tckts: 1; SS: -1; PRV: 2
+
+Continuar (s/n)? 
+(Passo:6)
+===Acoes Aleatorias===
+Bloqueado processo 3
+======================
+PID: 3; STAT: 2; PPID: 1; CPU: 154; Tckts: 8000; SS: -1; PRV: 1 NXT:2
+PID: 2; STAT: 2; PPID: 1; CPU: 246; Tckts: 9800; SS: -1; PRV: 3 NXT:1
+PID: 1; STAT: 4; PPID: 1; CPU: 200; Tckts: 1; SS: -1; PRV: 2
+
+(Passo:6/Iteracoes:100)
+PID: 3; STAT: 2; PPID: 1; CPU: 154; Tckts: 8000; SS: -1; PRV: 1 NXT:2
+PID: 2; STAT: 2; PPID: 1; CPU: 246; Tckts: 9800; SS: -1; PRV: 3 NXT:1
+PID: 1; STAT: 8; PPID: 1; CPU: 300; Tckts: 1; SS: -1; PRV: 2
+
+Continuar (s/n)? 
+----------------------
+[Test 2] Transferência de Tickets
+Criando processo...  Criado PID 1!
+
+(Passo:0)
+===Acoes Aleatorias===
+======================
+PID: 1; STAT: 4; PPID: 1; CPU: 0; Tckts: 1; SS: -1; PRV: 1
+
+(Passo:0/Iteracoes:100)
+PID: 1; STAT: 8; PPID: 1; CPU: 100; Tckts: 1; SS: -1; PRV: 1
+
+Continuar (s/n)? 
+(Passo:1)
+===Acoes Aleatorias===
+======================
+PID: 1; STAT: 8; PPID: 1; CPU: 100; Tckts: 1; SS: -1; PRV: 1
+
+(Passo:1/Iteracoes:100)
+PID: 1; STAT: 8; PPID: 1; CPU: 200; Tckts: 1; SS: -1; PRV: 1
+
+Continuar (s/n)? 
+(Passo:2)
+===Acoes Aleatorias===
+======================
+PID: 1; STAT: 8; PPID: 1; CPU: 200; Tckts: 1; SS: -1; PRV: 1
+
+(Passo:2/Iteracoes:100)
+PID: 1; STAT: 8; PPID: 1; CPU: 300; Tckts: 1; SS: -1; PRV: 1
+
+Continuar (s/n)? 
+(Passo:3)
+===Acoes Aleatorias===
+======================
+PID: 1; STAT: 8; PPID: 1; CPU: 300; Tckts: 1; SS: -1; PRV: 1
+
+(Passo:3/Iteracoes:100)
+PID: 1; STAT: 8; PPID: 1; CPU: 400; Tckts: 1; SS: -1; PRV: 1
+
+Continuar (s/n)? 
+(Passo:4)
+===Acoes Aleatorias===
+======================
+PID: 1; STAT: 8; PPID: 1; CPU: 400; Tckts: 1; SS: -1; PRV: 1
+
+(Passo:4/Iteracoes:100)
+PID: 1; STAT: 8; PPID: 1; CPU: 500; Tckts: 1; SS: -1; PRV: 1
+
+Continuar (s/n)? 
+(Passo:5)
+===Acoes Aleatorias===
+======================
+PID: 1; STAT: 8; PPID: 1; CPU: 500; Tckts: 1; SS: -1; PRV: 1
+
+(Passo:5/Iteracoes:100)
+PID: 1; STAT: 8; PPID: 1; CPU: 600; Tckts: 1; SS: -1; PRV: 1
+
+Continuar (s/n)? 
+(Passo:6)
+===Acoes Aleatorias===
+======================
+PID: 1; STAT: 8; PPID: 1; CPU: 600; Tckts: 1; SS: -1; PRV: 1
+
+(Passo:6/Iteracoes:100)
+PID: 1; STAT: 8; PPID: 1; CPU: 700; Tckts: 1; SS: -1; PRV: 1
+
+Continuar (s/n)? 
+----------------------
+[Test 3] Processos Bloqueados
+Criando processo...  Criado PID 1!
+
+(Passo:0)
+===Acoes Aleatorias===
+======================
+PID: 1; STAT: 4; PPID: 1; CPU: 0; Tckts: 1; SS: -1; PRV: 1
+
+(Passo:0/Iteracoes:100)
+PID: 1; STAT: 8; PPID: 1; CPU: 100; Tckts: 1; SS: -1; PRV: 1
+
+Continuar (s/n)? 
+(Passo:1)
+===Acoes Aleatorias===
+======================
+PID: 1; STAT: 8; PPID: 1; CPU: 100; Tckts: 1; SS: -1; PRV: 1
+
+(Passo:1/Iteracoes:100)
+PID: 1; STAT: 8; PPID: 1; CPU: 200; Tckts: 1; SS: -1; PRV: 1
+
+Continuar (s/n)? 
+(Passo:2)
+===Acoes Aleatorias===
+======================
+PID: 1; STAT: 8; PPID: 1; CPU: 200; Tckts: 1; SS: -1; PRV: 1
+
+(Passo:2/Iteracoes:100)
+PID: 1; STAT: 8; PPID: 1; CPU: 300; Tckts: 1; SS: -1; PRV: 1
+
+Continuar (s/n)? 
+(Passo:3)
+===Acoes Aleatorias===
+======================
+PID: 1; STAT: 8; PPID: 1; CPU: 300; Tckts: 1; SS: -1; PRV: 1
+
+(Passo:3/Iteracoes:100)
+PID: 1; STAT: 8; PPID: 1; CPU: 400; Tckts: 1; SS: -1; PRV: 1
+
+Continuar (s/n)? 
+(Passo:4)
+===Acoes Aleatorias===
+======================
+PID: 1; STAT: 8; PPID: 1; CPU: 400; Tckts: 1; SS: -1; PRV: 1
+
+(Passo:4/Iteracoes:100)
+PID: 1; STAT: 8; PPID: 1; CPU: 500; Tckts: 1; SS: -1; PRV: 1
+
+Continuar (s/n)? 
+(Passo:5)
+===Acoes Aleatorias===
+======================
+PID: 1; STAT: 8; PPID: 1; CPU: 500; Tckts: 1; SS: -1; PRV: 1
+
+(Passo:5/Iteracoes:100)
+PID: 1; STAT: 8; PPID: 1; CPU: 600; Tckts: 1; SS: -1; PRV: 1
+
+Continuar (s/n)? 
+(Passo:6)
+===Acoes Aleatorias===
+======================
+PID: 1; STAT: 8; PPID: 1; CPU: 600; Tckts: 1; SS: -1; PRV: 1
+
+(Passo:6/Iteracoes:100)
+PID: 1; STAT: 8; PPID: 1; CPU: 700; Tckts: 1; SS: -1; PRV: 1
+
+Continuar (s/n)? 
+======================
