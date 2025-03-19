@@ -51,7 +51,7 @@ Process* schedSchedule(Process *plist) {
 	Process *newp, *oldp;
 
 	//Se houver algum processo em execucao, colocar como pronto
-	if (oldp=processGetByStatus(plist,PROC_RUNNING)) {
+if ((oldp = processGetByStatus(plist, PROC_RUNNING))) { 
 		processSetStatus(oldp,PROC_READY);
 	}
 
