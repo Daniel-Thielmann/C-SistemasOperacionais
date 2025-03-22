@@ -21,112 +21,115 @@ const char lottName[] = "LOTT";
  * Essa função é chamada durante a inicialização do sistema.
  */
 void lottInitSchedInfo() {
-    static SchedInfo si; // Cria uma variável si do tipo SchedInfo e a torna estática dentro da função lottInitSchedInfo.
+    static SchedInfo si; // Cria uma variável si do tipo SchedInfo e a torna estática dentro da função
 
     // Copia o nome do algoritmo para a estrutura de escalonador
     strncpy(si.name, lottName, MAX_NAME_LEN);
-    si.name[MAX_NAME_LEN] = '\0';  // Garante que a string está corretamente terminada
+    si.name[MAX_NAME_LEN] = '\0';  // Garante terminação nula correta
 
-    // Define as funções de controle do algoritmo
-    si.initParamsFn = lottInitSchedParams;  // Inicializa parâmetros dos processos
-    si.scheduleFn = lottSchedule;           // Escolhe o próximo processo a ser executado
-    si.releaseParamsFn = lottReleaseParams; // Libera memória dos processos
-    si.notifyProcStatusChangeFn = lottNotifyProcStatusChange; // Notifica mudanças no estado do processo
-    
+    // Define as funções que implementam o algoritmo
+    si.initParamsFn = lottInitSchedParams;              // Inicializa os parâmetros do processo
+    si.scheduleFn = lottSchedule;                       // Seleciona o próximo processo
+    si.releaseParamsFn = lottReleaseParams;             // Libera os parâmetros quando o processo termina
+    si.notifyProcStatusChangeFn = lottNotifyProcStatusChange; // Notifica mudança de status
+
     // Registra o escalonador no sistema
     schedRegisterScheduler(&si);
 }
 
 /**
  * Inicializa os parâmetros de escalonamento de um processo.
- * Essa função é chamada quando um processo é associado ao escalonador Lottery Scheduling.
+ * Essa função é chamada quando o processo entra no escalonador Lottery.
  */
 void lottInitSchedParams(Process *p, void *params) {
-    if (!p || !params) return;  // Verifica se os ponteiros são válidos
-    processSetSchedParams(p, params);  // Define os parâmetros de escalonamento no processo
+    if (!p || !params) return;  // Verifica se ponteiros são válidos
+    processSetSchedParams(p, params);  // Associa os parâmetros ao processo
 }
 
 /**
- * Notifica que um processo teve seu estado alterado (por exemplo, foi bloqueado ou liberado).
- * Essa função pode ser usada para atualizar estatísticas internas do algoritmo.
+ * Notifica mudanças no estado do processo (executando, pronto, bloqueado, etc.).
+ * Essa função pode ser usada no futuro para adaptação dinâmica.
  */
-void lottNotifyProcStatusChange(Process* p) {
-    (void)p; // Apenas para evitar warnings de parâmetro não utilizado
+void lottNotifyProcStatusChange(Process *p) {
+    // Atualmente não realizamos nenhuma ação com a mudança de status
+    // Esta função é necessária para compatibilidade com o sistema
+    (void)p; // Supressão de warning de parâmetro não usado
 }
 
 /**
- * Escolhe o próximo processo a ser executado com base no algoritmo Lottery Scheduling.
- * A escolha é feita de forma probabilística baseada no número de tickets de cada processo.
+ * Escolhe o próximo processo a ser executado com base no algoritmo Lottery.
+ * Cada processo possui uma quantidade de "tickets" e a seleção é aleatória proporcional.
  */
 Process* lottSchedule(Process *plist) {
     int total_tickets = 0;
     Process *p = plist;
 
-    // Percorre a lista de processos e soma os tickets de todos os processos prontos
+    // Soma todos os tickets dos processos prontos (PROC_READY)
     while (p != NULL) {
-        if (processGetStatus(p) == PROC_READY) {  // Verifica se o processo está pronto para execução
+        if (processGetStatus(p) == PROC_READY) {
             LotterySchedParams *params = (LotterySchedParams*) processGetSchedParams(p);
-            total_tickets += params->num_tickets;  // Soma o número total de tickets
+            total_tickets += params->num_tickets;
         }
-        p = processGetNext(p); // Avança para o próximo processo na lista
+        p = processGetNext(p); // Próximo processo
     }
 
-    // Se não houver processos prontos, retorna NULL
+    // Se não há processos prontos, retorna NULL
     if (total_tickets == 0) return NULL;
 
-    // Sorteia um número entre 1 e total_tickets para decidir qual processo será escalonado
+    // Sorteia um número entre 1 e o total de tickets
     int sorteado = (rand() % total_tickets) + 1;
     int acumulado = 0;
-    
-    // Percorre a lista de processos novamente para selecionar o vencedor do sorteio
+
+    // Percorre a lista até encontrar o processo vencedor
     p = plist;
     while (p != NULL) {
         if (processGetStatus(p) == PROC_READY) {
             LotterySchedParams *params = (LotterySchedParams*) processGetSchedParams(p);
-            acumulado += params->num_tickets; // Acumula os tickets até atingir o número sorteado
-            
+            acumulado += params->num_tickets;
+
             if (acumulado >= sorteado) {
-                return p; // Processo escolhido para executar
+                return p; // Processo escolhido
             }
         }
         p = processGetNext(p);
     }
 
-    return NULL; // Isso não deveria acontecer se a soma dos tickets foi feita corretamente
-}
-
-/**
- * Libera os parâmetros de escalonamento de um processo.
- * Essa função é chamada quando um processo deixa de usar o escalonador Lottery Scheduling.
- */
-int lottReleaseParams(Process *p) {
-    if (!p) return -1;  // Verifica se o processo é válido
-
-    // Libera a memória dos parâmetros do processo
-    free(processGetSchedParams(p));
-    processSetSchedParams(p, NULL); // Remove os parâmetros do processo
-
-    return 0;
+    // Não deveria chegar aqui se os tickets foram somados corretamente
+    return NULL;
 }
 
 /**
  * Transfere um certo número de tickets de um processo para outro.
- * Isso pode ser usado para "doação" de tempo de CPU entre processos cooperativos.
+ * Útil para simular prioridades ou processos cooperando entre si.
  */
 int lottTransferTickets(Process *src, Process *dst, int tickets) {
-    if (!src || !dst || tickets <= 0) return 0; // Verifica se os parâmetros são válidos
+    if (!src || !dst || tickets <= 0) return 0; // Parâmetros inválidos
 
-    // Obtém os parâmetros de escalonamento dos processos de origem e destino
+    // Obtém os parâmetros dos dois processos
     LotterySchedParams *src_params = (LotterySchedParams*) processGetSchedParams(src);
     LotterySchedParams *dst_params = (LotterySchedParams*) processGetSchedParams(dst);
 
-    // Verifica se os processos possuem parâmetros válidos e se a origem tem tickets suficientes
+    // Verifica se há tickets suficientes para transferir
     if (!src_params || !dst_params || src_params->num_tickets < tickets)
-        return 0; // Não pode transferir mais tickets do que o processo possui
+        return 0;
 
-    // Transfere os tickets entre os processos
+    // Realiza a transferência
     src_params->num_tickets -= tickets;
     dst_params->num_tickets += tickets;
 
-    return tickets; // Retorna o número de tickets efetivamente transferidos
+    return tickets; // Retorna quantos foram transferidos
+}
+
+/**
+ * Libera os parâmetros associados ao processo no Lottery Scheduling.
+ * Chamado quando o processo termina ou muda de escalonador.
+ */
+int lottReleaseParams(Process *p) {
+    if (!p) return -1;
+
+    // Libera a memória e desvincula os parâmetros
+    free(processGetSchedParams(p));
+    processSetSchedParams(p, NULL);
+
+    return 0;
 }
