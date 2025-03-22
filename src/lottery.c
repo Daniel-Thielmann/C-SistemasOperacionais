@@ -48,7 +48,6 @@ void lottInitSchedParams(Process *p, void *params) {
 
 /**
  * Notifica mudanças no estado do processo (executando, pronto, bloqueado, etc.).
- * Essa função pode ser usada no futuro para adaptação dinâmica.
  */
 void lottNotifyProcStatusChange(Process *p) {
     // Atualmente não realizamos nenhuma ação com a mudança de status
